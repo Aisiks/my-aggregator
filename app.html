@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PRISM — Совет</title>
+  <meta name="description" content="Задай вопрос Совету из шести ИИ и получи решение с планом на 7 дней.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#12110e">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Playfair+Display:wght@500&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
+<body class="app">
+  <!-- Боковая панель: новый Совет + история -->
+  <aside class="sidebar" id="sidebar" aria-label="История">
+    <div class="sidebar-top">
+      <a href="/" class="logo" data-i18n-attr="aria-label:app.home">
+        <svg width="22" height="20" viewBox="0 0 26 24" aria-hidden="true"><path d="M13 2 24 22H2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <span>PRISM</span>
+      </a>
+      <button class="btn primary new-btn" id="new-btn" type="button" data-i18n="app.new">Новый Совет</button>
+    </div>
+    <p class="sidebar-label" data-i18n="app.history">История</p>
+    <ul class="history" id="history"></ul>
+    <div class="sidebar-bottom">
+      <div class="lang-switch" role="group" aria-label="Язык">
+        <button type="button" data-lang="ru">RU</button>
+        <button type="button" data-lang="kz">KZ</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <span class="plan-badge" id="plan-badge">Free</span>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim" hidden></div>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="icon-btn" id="menu-btn" type="button" data-i18n-attr="aria-label:app.menu" aria-controls="sidebar" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <p class="topbar-title" id="topbar-title">PRISM</p>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost" id="export-btn" type="button" data-i18n="app.export" hidden>Экспорт .md</button>
+      </div>
+    </header>
+
+    <div class="demo-banner" id="demo-banner" hidden data-i18n="app.demo"></div>
+
+    <!-- Лента заседаний -->
+    <section class="thread" id="thread" aria-live="polite">
+      <div class="welcome" id="welcome">
+        <h1 data-i18n="app.welcome.title">С чем поможет Совет?</h1>
+        <p data-i18n="app.welcome.lead"></p>
+        <div class="examples" id="examples">
+          <button type="button" class="example" data-i18n="app.ex1"></button>
+          <button type="button" class="example" data-i18n="app.ex2"></button>
+          <button type="button" class="example" data-i18n="app.ex3"></button>
+          <button type="button" class="example" data-i18n="app.ex4"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Поле ввода -->
+    <form class="composer" id="composer">
+      <fieldset class="agent-toggles" id="agent-toggles">
+        <legend class="sr-only" data-i18n="app.agents">Кто участвует</legend>
+      </fieldset>
+      <div class="input-row">
+        <label for="question" class="sr-only" data-i18n="app.send">Спросить Совет</label>
+        <textarea id="question" rows="1" maxlength="4000" data-i18n-attr="placeholder:app.placeholder"></textarea>
+        <button class="send-btn" id="send-btn" type="submit" data-i18n-attr="aria-label:app.send">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 15V3M4 8l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <p class="composer-meta" id="composer-meta"></p>
+    </form>
+  </main>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <script src="/assets/js/i18n.js"></script>
+  <script src="/assets/js/markdown.js"></script>
+  <script src="/assets/js/store.js"></script>
+  <script src="/assets/js/app.js"></script>
+</body>
+</html>

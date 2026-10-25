@@ -1,0 +1,139 @@
+/* ============================================================
+   landing.css — стили главной страницы
+   Все цвета и шрифты — из base.css через var(--...)
+   ============================================================ */
+
+/* ---------- Шапка ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(18, 17, 14, .86);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.header-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 64px; }
+.logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--gold); }
+.logo span { font-family: var(--font-display); font-size: 22px; color: var(--text); letter-spacing: .04em; }
+.main-nav { display: flex; gap: 28px; }
+.main-nav a { text-decoration: none; color: var(--muted); font-size: 15px; }
+.main-nav a:hover { color: var(--text); }
+.header-actions { display: flex; align-items: center; gap: 12px; }
+.btn-sm { padding: 8px 16px; font-size: 14px; }
+
+/* ---------- Hero ---------- */
+.hero { padding: 72px 0 56px; overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
+.hero h1 { font-size: clamp(40px, 6vw, 68px); max-width: 12ch; }
+.lead { color: var(--muted); font-size: 19px; max-width: 46ch; margin: 22px 0 30px; }
+
+.hero-ask {
+  display: flex; gap: 8px; padding: 6px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+  max-width: 560px;
+}
+.hero-ask input {
+  flex: 1; min-width: 0; border: 0; background: transparent; padding: 0 16px; outline: none; font-size: 16px;
+}
+.hero-ask input::placeholder { color: var(--muted); }
+.hero-ask:focus-within { border-color: var(--gold); }
+.hero-note { color: var(--muted); font-size: 14px; margin-top: 12px; }
+
+/* Призма */
+.prism-figure { position: relative; margin: 0; }
+.prism-svg { width: 100%; height: auto; overflow: visible; }
+.beam-in { stroke: var(--text); stroke-width: 2.5; stroke-linecap: round; opacity: .9; }
+.prism-shape { fill: rgba(200, 169, 110, .06); stroke: var(--gold); stroke-width: 1.6; stroke-linejoin: round; }
+.rays line { stroke: var(--c); stroke-width: 2.5; stroke-linecap: round; }
+.ray-labels text { fill: var(--text); font-family: var(--font-body); font-size: 15px; dominant-baseline: middle; }
+.decision-chip {
+  position: absolute; right: 4%; bottom: -6px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border-radius: 999px;
+  border: 1px solid var(--gold); background: var(--gold-soft); color: var(--gold); font-size: 14px;
+}
+
+/* Единственная анимация на странице: луч входит в призму и раскладывается */
+@media (prefers-reduced-motion: no-preference) {
+  .beam-in { stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw .7s var(--ease) .2s forwards; }
+  .rays line { stroke-dasharray: 240; stroke-dashoffset: 240; animation: draw .9s var(--ease) forwards; }
+  .rays line:nth-child(1) { animation-delay: .85s; } .rays line:nth-child(2) { animation-delay: .93s; }
+  .rays line:nth-child(3) { animation-delay: 1.01s; } .rays line:nth-child(4) { animation-delay: 1.09s; }
+  .rays line:nth-child(5) { animation-delay: 1.17s; } .rays line:nth-child(6) { animation-delay: 1.25s; }
+  .ray-labels, .decision-chip { opacity: 0; animation: appear .5s var(--ease) 1.9s forwards; }
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes appear { to { opacity: 1; } }
+
+/* ---------- Секции ---------- */
+.section { padding: 88px 0; border-top: 1px solid var(--line); }
+.section h2 { font-size: clamp(32px, 4vw, 46px); }
+.section-head { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; margin-bottom: 44px; }
+.section-head p { color: var(--muted); margin: 0; max-width: 52ch; }
+.narrow { max-width: 760px; }
+
+/* Шаги — настоящая последовательность, поэтому номера */
+.steps { list-style: none; counter-reset: step; padding: 0; margin: 44px 0 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.steps li { counter-increment: step; border-top: 1px solid var(--gold); padding-top: 20px; }
+.steps li::before { content: counter(step); font-family: var(--font-display); font-size: 40px; color: var(--gold); line-height: 1; }
+.steps h3 { font-size: 24px; margin: 14px 0 8px; }
+.steps p { color: var(--muted); margin: 0; }
+
+/* Агенты: список строк, а не одинаковые карточки */
+.agent-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 48px; }
+.agent-row { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: start;
+  padding: 22px 0; border-bottom: 1px solid var(--line); }
+.agent-row .agent-dot { margin-top: 10px; width: 11px; height: 11px; }
+.agent-name { font-family: var(--font-display); font-size: 26px; margin: 0; line-height: 1.2; }
+.agent-role { font-family: var(--font-body); font-size: 15px; color: var(--c); margin-left: 8px; }
+.agent-desc { color: var(--muted); margin: 4px 0 0; }
+.agent-vendor { font-size: 13px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; margin-top: 6px; }
+
+/* Тарифы */
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+.plan { position: relative; display: flex; flex-direction: column; padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.plan h3 { font-size: 30px; }
+.plan-desc { color: var(--muted); margin: 6px 0 18px; min-height: 2.8em; }
+.price { font-family: var(--font-display); font-size: 40px; margin: 0 0 18px; }
+.price span { font-family: var(--font-body); font-size: 16px; color: var(--muted); }
+.price.soon { color: var(--muted); font-size: 28px; }
+.plan ul { list-style: none; padding: 0; margin: 0 0 26px; flex: 1; }
+.plan li { padding: 8px 0 8px 22px; position: relative; border-top: 1px solid var(--line); font-size: 15px; }
+.plan li::before { content: ''; position: absolute; left: 2px; top: 17px; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+.plan.featured { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
+.plan-flag { position: absolute; top: -13px; left: 24px; margin: 0; background: var(--gold); color: #1a150c; font-size: 13px; padding: 3px 12px; border-radius: 999px; }
+.plan.muted { background: transparent; border-style: dashed; }
+
+/* FAQ на нативных <details> — работает без JS */
+.faq { margin-top: 32px; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { cursor: pointer; list-style: none; padding: 20px 36px 20px 0; position: relative; font-size: 18px; font-weight: 500; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; position: absolute; right: 4px; top: 16px; font-size: 24px; color: var(--gold); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { color: var(--muted); margin: 0 0 20px; max-width: 65ch; }
+
+/* Подвал */
+.site-footer { border-top: 1px solid var(--line); padding: 28px 0; color: var(--muted); font-size: 14px; }
+.footer-row { display: flex; justify-content: space-between; gap: 16px; }
+.footer-row a { color: var(--gold); text-decoration: none; }
+
+/* ---------- Адаптив ---------- */
+@media (max-width: 960px) {
+  .main-nav { display: none; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .prism-figure { max-width: 520px; }
+  .section-head { grid-template-columns: 1fr; gap: 14px; }
+  .steps, .plans { grid-template-columns: 1fr; }
+  .agent-list { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .header-actions .btn { display: none; }
+  .hero { padding: 40px 0 36px; }
+  .hero h1 { font-size: 38px; max-width: none; }
+  .hero-ask { flex-direction: column; border-radius: var(--radius); }
+  .hero-ask input { padding: 12px; }
+  .section { padding: 60px 0; }
+  .agent-vendor { display: none; }
+  .footer-row { flex-direction: column; }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "prism-by-synapse",
+  "version": "0.2.0",
+  "private": true,
+  "description": "PRISM — Совет из шести ИИ-агентов. Vanilla JS + Vercel Functions + OpenRouter.",
+  "scripts": {
+    "dev": "node server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": { "node": ">=18" }
+}

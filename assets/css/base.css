@@ -1,0 +1,121 @@
+/* ============================================================
+   base.css — общие токены и базовые стили для всех страниц
+   DRY: цвета, шрифты, отступы объявлены ОДИН раз здесь,
+   landing.css и app.css только используют их через var(--имя).
+   ============================================================ */
+
+:root {
+  /* Цвета */
+  --bg: #12110e;          /* обсидиан — фон страницы */
+  --surface: #1b1915;     /* карточки и панели */
+  --surface-2: #24211c;   /* поля ввода, ховеры */
+  --line: #332f28;        /* тонкие границы */
+  --text: #ece6da;        /* основной текст */
+  --muted: #9b9384;       /* второстепенный текст */
+  --gold: #c8a96e;        /* фирменный акцент */
+  --gold-soft: rgba(200, 169, 110, 0.14);
+  --danger: #e07a6a;
+
+  /* Цвета агентов — «лучи призмы». Используются только как метки агентов */
+  --alex: #e8836b;
+  --sam: #e6b85c;
+  --max: #9cc46a;
+  --zara: #5cc3b8;
+  --leo: #6f9be8;
+  --nina: #b48ae0;
+
+  /* Типографика */
+  --font-display: 'DM Serif Display', 'Playfair Display', Georgia, serif; /* у DM Serif нет кириллицы — русские и казахские буквы берёт Playfair */
+  --font-body: 'Golos Text', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Размеры */
+  --radius: 14px;
+  --radius-sm: 8px;
+  --container: 1120px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Атрибут hidden должен побеждать любые display из классов */
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+a { color: inherit; }
+img, svg { display: block; max-width: 100%; }
+
+button, input, textarea, select { font: inherit; color: inherit; }
+
+/* Видимый фокус для клавиатуры — обязательно для доступности */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Кнопки: базовый класс + модификаторы (паттерн, который мы разбирали на .pricing-card) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
+}
+.btn:hover { border-color: var(--gold); }
+.btn:active { transform: scale(.98); }
+.btn.primary { background: var(--gold); border-color: var(--gold); color: #1a150c; }
+.btn.primary:hover { background: #d6b97f; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* Переключатель языка */
+.lang-switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+.lang-switch button {
+  border: 0; background: transparent; padding: 4px 10px; border-radius: 999px;
+  font-size: 13px; color: var(--muted); cursor: pointer;
+}
+.lang-switch button[aria-pressed="true"] { background: var(--surface-2); color: var(--text); }
+
+/* Точка-метка агента */
+.agent-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; background: var(--c, var(--gold)); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

@@ -2,10 +2,177 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>AI Aggregator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PRISM — Совет из шести ИИ: Claude, GPT, Gemini, Grok, DeepSeek, Mistral</title>
+  <meta name="description" content="Задай один вопрос шести ИИ сразу. Маркетолог, аналитик, стратег, критик, разработчик и юрист отвечают со своих ролей, а Совет выносит решение и план на 7 дней. Оплата в тенге.">
+  <meta name="theme-color" content="#12110e">
+  <link rel="canonical" href="https://prismai.kz/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <!-- Open Graph: как ссылка выглядит в Telegram / WhatsApp / Instagram -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PRISM — один вопрос, шесть экспертов, одно решение">
+  <meta property="og:description" content="Совет из шести ИИ для решений в бизнесе, учёбе и коде. RU · KZ · EN.">
+  <meta property="og:url" content="https://prismai.kz/">
+  <meta property="og:image" content="https://prismai.kz/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Playfair+Display:wght@500&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/landing.css">
+
+  <!-- Структурированные данные для Google -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"PRISM by Synapse","applicationCategory":"BusinessApplication","operatingSystem":"Web",
+   "offers":[{"@type":"Offer","name":"Starter","price":"2490","priceCurrency":"KZT"},{"@type":"Offer","name":"Pro","price":"6990","priceCurrency":"KZT"}]}
+  </script>
 </head>
 <body>
-  <h1>Мой AI Агрегатор</h1>
-  <p>Скоро здесь будет что-то крутое</p>
+  <header class="site-header">
+    <div class="container header-row">
+      <a href="/" class="logo" aria-label="PRISM — на главную">
+        <svg width="26" height="24" viewBox="0 0 26 24" aria-hidden="true"><path d="M13 2 24 22H2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span>PRISM</span>
+      </a>
+      <nav class="main-nav" aria-label="Основная навигация">
+        <a href="#how" data-i18n="nav.how">Как работает</a>
+        <a href="#agents" data-i18n="nav.agents">Агенты</a>
+        <a href="#pricing" data-i18n="nav.pricing">Тарифы</a>
+        <a href="#faq" data-i18n="nav.faq">Вопросы</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" role="group" aria-label="Язык">
+          <button type="button" data-lang="ru">RU</button>
+          <button type="button" data-lang="kz">KZ</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <a class="btn primary btn-sm" href="/app" data-i18n="nav.open">Открыть PRISM</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO: главный визуальный момент — призма раскладывает вопрос на 6 лучей -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <h1 data-i18n="hero.title">Один вопрос. Шесть экспертов. Одно решение.</h1>
+          <p class="lead" data-i18n="hero.lead">PRISM задаёт твой вопрос сразу шести ИИ — Claude, GPT, Gemini, Grok, DeepSeek и Mistral. Каждый отвечает со своей роли, а Совет сводит всё в один понятный план.</p>
+          <form class="hero-ask" action="/app" method="get">
+            <label class="sr-only" for="hero-q" data-i18n="hero.cta">Задать вопрос Совету</label>
+            <input id="hero-q" name="q" type="text" autocomplete="off" data-i18n-attr="placeholder:app.placeholder" placeholder="Спроси Совет…">
+            <button class="btn primary" type="submit" data-i18n="hero.cta">Задать вопрос Совету</button>
+          </form>
+          <p class="hero-note" data-i18n="hero.note">Без регистрации · первые вопросы бесплатно</p>
+        </div>
+
+        <figure class="prism-figure" aria-hidden="true">
+          <svg viewBox="0 0 520 440" class="prism-svg">
+            <!-- входящий белый луч = вопрос -->
+            <line class="beam-in" x1="0" y1="220" x2="196" y2="220"/>
+            <!-- сама призма -->
+            <path class="prism-shape" d="M250 120 314 290H186Z"/>
+            <!-- шесть лучей-агентов -->
+            <g class="rays">
+              <line style="--c:var(--alex)" x1="276" y1="214" x2="470" y2="70"/>
+              <line style="--c:var(--sam)"  x1="278" y1="218" x2="470" y2="132"/>
+              <line style="--c:var(--max)"  x1="280" y1="222" x2="470" y2="194"/>
+              <line style="--c:var(--zara)" x1="280" y1="226" x2="470" y2="256"/>
+              <line style="--c:var(--leo)"  x1="278" y1="230" x2="470" y2="318"/>
+              <line style="--c:var(--nina)" x1="276" y1="234" x2="470" y2="380"/>
+            </g>
+            <g class="ray-labels">
+              <text x="478" y="74">Alex</text><text x="478" y="136">Sam</text><text x="478" y="198">Max</text>
+              <text x="478" y="260">Zara</text><text x="478" y="322">Leo</text><text x="478" y="384">Nina</text>
+            </g>
+          </svg>
+          <figcaption class="decision-chip"><span class="agent-dot"></span><span data-i18n="hero.decision">Решение Совета</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- КАК РАБОТАЕТ: это реальная последовательность, поэтому нумерация уместна -->
+    <section id="how" class="section">
+      <div class="container">
+        <h2 data-i18n="how.title">Как проходит Совет</h2>
+        <ol class="steps">
+          <li><h3 data-i18n="how.1.t">Ты задаёшь вопрос</h3><p data-i18n="how.1.d"></p></li>
+          <li><h3 data-i18n="how.2.t">Шесть агентов отвечают параллельно</h3><p data-i18n="how.2.d"></p></li>
+          <li><h3 data-i18n="how.3.t">Совет выносит решение</h3><p data-i18n="how.3.d"></p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="agents" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2 data-i18n="agents.title">Кто сидит в Совете</h2>
+          <p data-i18n="agents.lead"></p>
+        </div>
+        <!-- Список заполняется из AGENTS_UI в landing.js, чтобы данные не дублировались -->
+        <ul class="agent-list" id="agent-list"></ul>
+      </div>
+    </section>
+
+    <section id="pricing" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2 data-i18n="pricing.title">Тарифы</h2>
+          <p data-i18n="pricing.lead"></p>
+        </div>
+        <div class="plans">
+          <article class="plan">
+            <h3 data-i18n="pricing.starter">Starter</h3>
+            <p class="plan-desc" data-i18n="pricing.starter.d"></p>
+            <p class="price">2 490 ₸<span data-i18n="pricing.month">/мес</span></p>
+            <ul>
+              <li data-i18n="pricing.starter.f1"></li><li data-i18n="pricing.starter.f2"></li><li data-i18n="pricing.starter.f3"></li>
+            </ul>
+            <a class="btn" href="/app?plan=starter" data-i18n="pricing.choose">Начать</a>
+          </article>
+          <article class="plan featured">
+            <p class="plan-flag" data-i18n="pricing.popular">Выбор большинства</p>
+            <h3 data-i18n="pricing.pro">Pro</h3>
+            <p class="plan-desc" data-i18n="pricing.pro.d"></p>
+            <p class="price">6 990 ₸<span data-i18n="pricing.month">/мес</span></p>
+            <ul>
+              <li data-i18n="pricing.pro.f1"></li><li data-i18n="pricing.pro.f2"></li><li data-i18n="pricing.pro.f3"></li>
+            </ul>
+            <a class="btn primary" href="/app?plan=pro" data-i18n="pricing.choose">Начать</a>
+          </article>
+          <article class="plan muted">
+            <h3 data-i18n="pricing.business">Business</h3>
+            <p class="plan-desc" data-i18n="pricing.business.d"></p>
+            <p class="price soon" data-i18n="pricing.soon">Скоро</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="container narrow">
+        <h2 data-i18n="faq.title">Частые вопросы</h2>
+        <div class="faq">
+          <details><summary data-i18n="faq.1.q"></summary><p data-i18n="faq.1.a"></p></details>
+          <details><summary data-i18n="faq.2.q"></summary><p data-i18n="faq.2.a"></p></details>
+          <details><summary data-i18n="faq.3.q"></summary><p data-i18n="faq.3.a"></p></details>
+          <details><summary data-i18n="faq.4.q"></summary><p data-i18n="faq.4.a"></p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <span data-i18n="footer.rights">PRISM by Synapse · Алматы</span>
+      <a href="/app" data-i18n="nav.open">Открыть PRISM</a>
+    </div>
+  </footer>
+
+  <!-- JS в конце body: страница рисуется, не дожидаясь скриптов -->
+  <script src="/assets/js/i18n.js"></script>
+  <script src="/assets/js/landing.js"></script>
 </body>
 </html>
