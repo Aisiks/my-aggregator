@@ -21,3 +21,12 @@ function renderAgentList(lang = getLang()) {
 initLangSwitch();
 renderAgentList();
 document.addEventListener('langchange', e => renderAgentList(e.detail));
+
+// Вопрос из hero-формы дублируем в sessionStorage: на некоторых хостингах
+// параметр ?q= может потеряться при переходе, а так приложение его всё равно найдёт.
+const heroForm = document.querySelector('.hero-ask');
+if (heroForm) {
+  heroForm.addEventListener('submit', () => {
+    try { sessionStorage.setItem('prism.pendingQ', heroForm.q.value); } catch {}
+  });
+}

@@ -443,9 +443,10 @@ function init() {
 
   checkServer().then(() => {
     // Вопрос с главной страницы: app?q=...
-    const q = new URLSearchParams(location.search).get('q');
+    let q = new URLSearchParams(location.search).get('q');
+    try { q = q || sessionStorage.getItem('prism.pendingQ'); sessionStorage.removeItem('prism.pendingQ'); } catch {}
     if (q) {
-      history.replaceState(null, '', location.pathname);
+      try { history.replaceState(null, '', location.pathname); } catch {}
       ask(q);
     } else {
       els.question.focus();
