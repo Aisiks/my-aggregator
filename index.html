@@ -7,7 +7,7 @@
   <meta name="description" content="Задай один вопрос шести ИИ сразу. Маркетолог, аналитик, стратег, критик, разработчик и юрист отвечают со своих ролей, а Совет выносит решение и план на 7 дней. Оплата в тенге.">
   <meta name="theme-color" content="#12110e">
   <link rel="canonical" href="https://prismai.kz/">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
   <!-- Open Graph: как ссылка выглядит в Telegram / WhatsApp / Instagram -->
   <meta property="og:type" content="website">
@@ -20,8 +20,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Playfair+Display:wght@500&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/base.css">
-  <link rel="stylesheet" href="/assets/css/landing.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/landing.css">
 
   <!-- Структурированные данные для Google -->
   <script type="application/ld+json">
@@ -32,7 +32,7 @@
 <body>
   <header class="site-header">
     <div class="container header-row">
-      <a href="/" class="logo" aria-label="PRISM — на главную">
+      <a href="index.html" class="logo" aria-label="PRISM — на главную">
         <svg width="26" height="24" viewBox="0 0 26 24" aria-hidden="true"><path d="M13 2 24 22H2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
         <span>PRISM</span>
       </a>
@@ -48,7 +48,7 @@
           <button type="button" data-lang="kz">KZ</button>
           <button type="button" data-lang="en">EN</button>
         </div>
-        <a class="btn primary btn-sm" href="/app" data-i18n="nav.open">Открыть PRISM</a>
+        <a class="btn primary btn-sm" href="app.html" data-i18n="nav.open">Открыть PRISM</a>
       </div>
     </div>
   </header>
@@ -60,7 +60,7 @@
         <div class="hero-copy">
           <h1 data-i18n="hero.title">Один вопрос. Шесть экспертов. Одно решение.</h1>
           <p class="lead" data-i18n="hero.lead">PRISM задаёт твой вопрос сразу шести ИИ — Claude, GPT, Gemini, Grok, DeepSeek и Mistral. Каждый отвечает со своей роли, а Совет сводит всё в один понятный план.</p>
-          <form class="hero-ask" action="/app" method="get">
+          <form class="hero-ask" action="app.html" method="get">
             <label class="sr-only" for="hero-q" data-i18n="hero.cta">Задать вопрос Совету</label>
             <input id="hero-q" name="q" type="text" autocomplete="off" data-i18n-attr="placeholder:app.placeholder" placeholder="Спроси Совет…">
             <button class="btn primary" type="submit" data-i18n="hero.cta">Задать вопрос Совету</button>
@@ -130,7 +130,7 @@
             <ul>
               <li data-i18n="pricing.starter.f1"></li><li data-i18n="pricing.starter.f2"></li><li data-i18n="pricing.starter.f3"></li>
             </ul>
-            <a class="btn" href="/app?plan=starter" data-i18n="pricing.choose">Начать</a>
+            <a class="btn" href="app.html" data-i18n="pricing.choose">Начать</a>
           </article>
           <article class="plan featured">
             <p class="plan-flag" data-i18n="pricing.popular">Выбор большинства</p>
@@ -140,7 +140,7 @@
             <ul>
               <li data-i18n="pricing.pro.f1"></li><li data-i18n="pricing.pro.f2"></li><li data-i18n="pricing.pro.f3"></li>
             </ul>
-            <a class="btn primary" href="/app?plan=pro" data-i18n="pricing.choose">Начать</a>
+            <a class="btn primary" href="app.html" data-i18n="pricing.choose">Начать</a>
           </article>
           <article class="plan muted">
             <h3 data-i18n="pricing.business">Business</h3>
@@ -167,12 +167,12 @@
   <footer class="site-footer">
     <div class="container footer-row">
       <span data-i18n="footer.rights">PRISM by Synapse · Алматы</span>
-      <a href="/app" data-i18n="nav.open">Открыть PRISM</a>
+      <a href="app.html" data-i18n="nav.open">Открыть PRISM</a>
     </div>
   </footer>
 
   <!-- JS в конце body: страница рисуется, не дожидаясь скриптов -->
-  <script src="/assets/js/i18n.js"></script>
-  <script src="/assets/js/landing.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/landing.js"></script>
 </body>
 </html>

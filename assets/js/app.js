@@ -239,7 +239,13 @@ async function ask(question) {
   const turnEl = els.thread.querySelector(`.turn[data-index="${session.turns.length - 1}"]`);
   turnEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
+  const onEvent = (event, data) => handleEvent(event, data, turn, turnEl);
   try {
+    // Сайт открыт без сервера (статичный хостинг/превью) — проводим демо-Совет прямо в браузере
+    if (state.offline) {
+      await runLocalDemo(question, turn.agents, onEvent);
+      return;
+    }
     const res = await fetch('/api/council', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -249,7 +255,7 @@ async function ask(question) {
       const data = await res.json().catch(() => ({}));
       throw new Error(data.error || t('app.error.net'));
     }
-    await readStream(res, (event, data) => handleEvent(event, data, turn, turnEl));
+    await readStream(res, onEvent);
     if (!state.demo) Quota.use();
   } catch (err) {
     turn.decisionError = err.message && err.message !== 'Failed to fetch' ? err.message : t('app.error.net');
@@ -259,6 +265,17 @@ async function ask(question) {
     setBusy(false);
     renderMeta();
   }
+}
+
+// Демо-Совет без сервера: те же события, что шлёт /api/council
+async function runLocalDemo(question, agentIds, onEvent) {
+  onEvent('start', { demo: true });
+  await Promise.all(agentIds.map(async id => {
+    const { content } = await PrismDemo.demoAgentAnswer({ id }, question);
+    onEvent('agent', { id, content });
+  }));
+  const { content } = await PrismDemo.demoDecision(question);
+  onEvent('decision', { content });
 }
 
 // Реакция на каждое событие из потока
@@ -424,21 +441,30 @@ function init() {
   document.querySelectorAll('.example').forEach(b => b.addEventListener('click', () => ask(b.textContent)));
   document.addEventListener('langchange', () => { renderToggles(); renderHistory(); renderThread(); renderMeta(); });
 
-  // Узнаём режим сервера (демо или живые модели)
-  fetch('/api/health').then(r => r.json()).then(h => {
-    state.demo = h.mode === 'demo';
-    els.demo.hidden = !state.demo;
-    renderMeta();
-  }).catch(() => {});
+  checkServer().then(() => {
+    // Вопрос с главной страницы: app?q=...
+    const q = new URLSearchParams(location.search).get('q');
+    if (q) {
+      history.replaceState(null, '', location.pathname);
+      ask(q);
+    } else {
+      els.question.focus();
+    }
+  });
+}
 
-  // Вопрос с главной страницы: /app?q=...
-  const q = new URLSearchParams(location.search).get('q');
-  if (q) {
-    history.replaceState(null, '', '/app');
-    ask(q);
-  } else {
-    els.question.focus();
+// Узнаём режим сервера: live (настоящие модели), demo (нет ключа) или offline (сервера нет вообще)
+async function checkServer() {
+  try {
+    const res = await fetch('/api/health');
+    const h = await res.json();
+    state.demo = h.mode === 'demo';
+  } catch {
+    state.offline = true;
+    state.demo = true;
   }
+  els.demo.hidden = !state.demo;
+  renderMeta();
 }
 
 init();

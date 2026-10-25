@@ -7,18 +7,18 @@
   <meta name="description" content="Задай вопрос Совету из шести ИИ и получи решение с планом на 7 дней.">
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#12110e">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Playfair+Display:wght@500&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/base.css">
-  <link rel="stylesheet" href="/assets/css/app.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body class="app">
   <!-- Боковая панель: новый Совет + история -->
   <aside class="sidebar" id="sidebar" aria-label="История">
     <div class="sidebar-top">
-      <a href="/" class="logo" data-i18n-attr="aria-label:app.home">
+      <a href="index.html" class="logo" data-i18n-attr="aria-label:app.home">
         <svg width="22" height="20" viewBox="0 0 26 24" aria-hidden="true"><path d="M13 2 24 22H2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
         <span>PRISM</span>
       </a>
@@ -82,9 +82,10 @@
 
   <div class="toast" id="toast" role="status" hidden></div>
 
-  <script src="/assets/js/i18n.js"></script>
-  <script src="/assets/js/markdown.js"></script>
-  <script src="/assets/js/store.js"></script>
-  <script src="/assets/js/app.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/markdown.js"></script>
+  <script src="assets/js/demo-engine.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
