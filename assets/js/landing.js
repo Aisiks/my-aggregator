@@ -1,32 +1,33 @@
 // ============================================================
-// landing.js — логика главной страницы
-// 1) рисует список агентов из AGENTS_UI (один источник данных, DRY)
-// 2) включает переключатель языка
+// landing.js — логика главной страницы PRISM
+// 1) переключатель языка; 2) переключатель режима в hero-форме;
+// 3) передача вопроса в приложение (и через ?q=, и через sessionStorage).
 // ============================================================
 
-function renderAgentList(lang = getLang()) {
-  const list = document.getElementById('agent-list');
-  if (!list) return;
-  list.innerHTML = AGENTS_UI.map(a => `
-    <li class="agent-row" style="--c: var(--${a.id})">
-      <span class="agent-dot"></span>
-      <div>
-        <p class="agent-name">${a.name} <span class="agent-role">${a.role[lang]}</span></p>
-        <p class="agent-desc">${a.desc[lang]}</p>
-      </div>
-      <span class="agent-vendor">${a.vendor}</span>
-    </li>`).join('');
-}
-
 initLangSwitch();
-renderAgentList();
-document.addEventListener('langchange', e => renderAgentList(e.detail));
 
-// Вопрос из hero-формы дублируем в sessionStorage: на некоторых хостингах
-// параметр ?q= может потеряться при переходе, а так приложение его всё равно найдёт.
-const heroForm = document.querySelector('.hero-ask');
-if (heroForm) {
-  heroForm.addEventListener('submit', () => {
-    try { sessionStorage.setItem('prism.pendingQ', heroForm.q.value); } catch {}
-  });
+const form = document.getElementById('hero-form');
+const modeInput = document.getElementById('hero-mode');
+const textarea = document.getElementById('hero-q');
+
+function setHeroMode(mode) {
+  modeInput.value = mode;
+  form.querySelectorAll('.seg-btn').forEach(b => b.setAttribute('aria-selected', String(b.dataset.mode === mode)));
+  const key = mode === 'check' ? 'hero.ph.check' : 'hero.ph.ask';
+  textarea.dataset.i18nAttr = `placeholder:${key}`;
+  textarea.setAttribute('placeholder', t(key));
 }
+
+form.querySelectorAll('.seg-btn').forEach(b => b.addEventListener('click', () => setHeroMode(b.dataset.mode)));
+
+form.addEventListener('submit', e => {
+  if (!textarea.value.trim()) { e.preventDefault(); textarea.focus(); return; }
+  try { sessionStorage.setItem('prism.pending', JSON.stringify({ q: textarea.value, mode: modeInput.value })); } catch {}
+});
+
+// Enter отправляет, Shift+Enter — новая строка
+textarea.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); form.requestSubmit(); }
+});
+
+document.addEventListener('langchange', () => setHeroMode(modeInput.value));

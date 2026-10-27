@@ -44,7 +44,7 @@ const Store = (() => {
 // Важно: это только на клиенте, обойти легко. Настоящий лимит — в Supabase.
 const Quota = (() => {
   const KEY = 'prism.quota';
-  const FREE_PER_DAY = 5;
+  const FREE_PER_DAY = 3;
   const today = () => new Date().toISOString().slice(0, 10);
   function read() {
     try {

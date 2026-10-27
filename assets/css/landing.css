@@ -26,42 +26,74 @@
 .lead { color: var(--muted); font-size: 19px; max-width: 46ch; margin: 22px 0 30px; }
 
 .hero-ask {
-  display: flex; gap: 8px; padding: 6px;
-  background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
-  max-width: 560px;
+  display: grid; gap: 10px; padding: 12px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  max-width: 580px;
 }
-.hero-ask input {
-  flex: 1; min-width: 0; border: 0; background: transparent; padding: 0 16px; outline: none; font-size: 16px;
-}
-.hero-ask input::placeholder { color: var(--muted); }
 .hero-ask:focus-within { border-color: var(--gold); }
-.hero-note { color: var(--muted); font-size: 14px; margin-top: 12px; }
+.hero-ask textarea {
+  width: 100%; resize: vertical; min-height: 84px; border: 0; background: transparent; outline: none;
+  font-size: 16px; line-height: 1.5; padding: 4px 6px;
+}
+.hero-ask textarea::placeholder { color: var(--muted); }
+.hero-ask-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.hero-note { color: var(--muted); font-size: 13px; margin: 0; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; justify-self: start; }
+.seg-btn { border: 0; background: transparent; padding: 5px 12px; border-radius: 999px; font-size: 13px; color: var(--muted); cursor: pointer; }
+.seg-btn[aria-selected="true"] { background: var(--surface-2); color: var(--text); }
 
-/* Призма */
+/* Главный образ: три независимых луча сходятся через призму в один вывод */
 .prism-figure { position: relative; margin: 0; }
 .prism-svg { width: 100%; height: auto; overflow: visible; }
-.beam-in { stroke: var(--text); stroke-width: 2.5; stroke-linecap: round; opacity: .9; }
 .prism-shape { fill: rgba(200, 169, 110, .06); stroke: var(--gold); stroke-width: 1.6; stroke-linejoin: round; }
-.rays line { stroke: var(--c); stroke-width: 2.5; stroke-linecap: round; }
-.ray-labels text { fill: var(--text); font-family: var(--font-body); font-size: 15px; dominant-baseline: middle; }
-.decision-chip {
-  position: absolute; right: 4%; bottom: -6px;
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 14px; border-radius: 999px;
-  border: 1px solid var(--gold); background: var(--gold-soft); color: var(--gold); font-size: 14px;
+.rays-in line { stroke: var(--c); stroke-width: 2.5; stroke-linecap: round; }
+.beam-out { stroke: var(--text); stroke-width: 3; stroke-linecap: round; }
+.ray-labels text { fill: var(--muted); font-family: var(--font-body); font-size: 14px; }
+.demo-card {
+  position: relative; margin: -18px 0 0 auto; max-width: 330px;
+  padding: 14px 16px; border-radius: var(--radius); background: var(--surface);
+  border: 1px solid var(--line); border-top: 3px solid #7cc48a;
 }
+.demo-q { margin: 0 0 10px; font-size: 14px; color: var(--muted); }
+.demo-meter { height: 6px; border-radius: 6px; background: var(--surface-2); overflow: hidden; }
+.demo-meter span { display: block; width: 91%; height: 100%; background: #7cc48a; border-radius: 6px; }
+.demo-v { margin: 10px 0 0; display: flex; gap: 8px; align-items: center; font-weight: 500; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: #7cc48a; flex: none; }
 
-/* Единственная анимация на странице: луч входит в призму и раскладывается */
+/* Одна анимация: лучи входят в призму, выходит один луч, появляется вывод */
 @media (prefers-reduced-motion: no-preference) {
-  .beam-in { stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw .7s var(--ease) .2s forwards; }
-  .rays line { stroke-dasharray: 240; stroke-dashoffset: 240; animation: draw .9s var(--ease) forwards; }
-  .rays line:nth-child(1) { animation-delay: .85s; } .rays line:nth-child(2) { animation-delay: .93s; }
-  .rays line:nth-child(3) { animation-delay: 1.01s; } .rays line:nth-child(4) { animation-delay: 1.09s; }
-  .rays line:nth-child(5) { animation-delay: 1.17s; } .rays line:nth-child(6) { animation-delay: 1.25s; }
-  .ray-labels, .decision-chip { opacity: 0; animation: appear .5s var(--ease) 1.9s forwards; }
+  .rays-in line { stroke-dasharray: 220; stroke-dashoffset: 220; animation: draw .8s var(--ease) forwards; }
+  .rays-in line:nth-child(2) { animation-delay: .12s; } .rays-in line:nth-child(3) { animation-delay: .24s; }
+  .beam-out { stroke-dasharray: 230; stroke-dashoffset: 230; animation: draw .7s var(--ease) 1s forwards; }
+  .demo-card { animation: rise .5s var(--ease) 1.6s both; }
 }
 @keyframes draw { to { stroke-dashoffset: 0; } }
-@keyframes appear { to { opacity: 1; } }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+
+/* Проблема: три факта */
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; }
+.fact { border-top: 1px solid var(--line); padding-top: 18px; }
+.fact-n { font-family: var(--font-display); font-size: clamp(40px, 5vw, 58px); line-height: 1; color: var(--gold); margin: 0 0 12px; }
+.fact p:last-child { color: var(--muted); margin: 0; max-width: 30ch; }
+.src { color: var(--muted); font-size: 12px; margin: 28px 0 0; }
+
+/* Сценарии */
+.cases { list-style: none; padding: 0; margin: 36px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line); }
+.cases li { padding: 20px 20px 4px 0; }
+.cases li + li { padding-left: 20px; border-left: 1px solid var(--line); }
+.cases h3 { font-size: 22px; margin-bottom: 8px; }
+.cases p { color: var(--muted); margin: 0; font-size: 15px; }
+
+/* Работает поверх ChatGPT */
+.check-band { background: var(--surface); }
+.check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.check-grid .lead { margin: 16px 0 24px; }
+.paste-mock { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); padding: 18px 20px; }
+.pm-src { margin: 0 0 8px; font-size: 12px; color: var(--muted); }
+.pm-text { margin: 0 0 14px; line-height: 1.7; }
+.pm-text mark.bad { background: rgba(224, 122, 106, .16); color: var(--text); text-decoration: underline wavy #e07a6a; text-underline-offset: 4px; border-radius: 3px; padding: 0 2px; }
+.pm-res { margin: 0; display: flex; gap: 8px; align-items: center; color: #e07a6a; font-weight: 500; }
+.pm-res .dot { background: #e07a6a; }
 
 /* ---------- Секции ---------- */
 .section { padding: 88px 0; border-top: 1px solid var(--line); }
@@ -77,16 +109,6 @@
 .steps li::before { content: counter(step); font-family: var(--font-display); font-size: 40px; color: var(--gold); line-height: 1; }
 .steps h3 { font-size: 24px; margin: 14px 0 8px; }
 .steps p { color: var(--muted); margin: 0; }
-
-/* Агенты: список строк, а не одинаковые карточки */
-.agent-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 48px; }
-.agent-row { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: start;
-  padding: 22px 0; border-bottom: 1px solid var(--line); }
-.agent-row .agent-dot { margin-top: 10px; width: 11px; height: 11px; }
-.agent-name { font-family: var(--font-display); font-size: 26px; margin: 0; line-height: 1.2; }
-.agent-role { font-family: var(--font-body); font-size: 15px; color: var(--c); margin-left: 8px; }
-.agent-desc { color: var(--muted); margin: 4px 0 0; }
-.agent-vendor { font-size: 13px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; margin-top: 6px; }
 
 /* Тарифы */
 .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
@@ -123,17 +145,18 @@
   .hero-grid { grid-template-columns: 1fr; }
   .prism-figure { max-width: 520px; }
   .section-head { grid-template-columns: 1fr; gap: 14px; }
-  .steps, .plans { grid-template-columns: 1fr; }
-  .agent-list { grid-template-columns: 1fr; }
+  .steps, .plans, .facts, .check-grid { grid-template-columns: 1fr; }
+  .cases { grid-template-columns: 1fr 1fr; }
+  .cases li:nth-child(3) { padding-left: 0; border-left: 0; }
 }
 @media (max-width: 560px) {
   body { font-size: 16px; }
   .header-actions .btn { display: none; }
   .hero { padding: 40px 0 36px; }
   .hero h1 { font-size: 38px; max-width: none; }
-  .hero-ask { flex-direction: column; border-radius: var(--radius); }
-  .hero-ask input { padding: 12px; }
+  .hero-ask-row { flex-direction: column-reverse; align-items: stretch; }
+  .cases { grid-template-columns: 1fr; }
+  .cases li, .cases li + li { padding-left: 0; border-left: 0; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
   .section { padding: 60px 0; }
-  .agent-vendor { display: none; }
   .footer-row { flex-direction: column; }
 }
